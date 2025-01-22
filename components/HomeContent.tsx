@@ -73,7 +73,7 @@ export default function HomeContent() {
 
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-      <TabsList className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap justify-center p-1 bg-gray-100 rounded-lg mb-4">
+      <TabsList className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap justify-center p-1 bg-gray-100 rounded-lg mb-6 sm:mb-4">
         {[
           { value: "income", icon: Calculator, label: t.incomeTax },
           { value: "vat", icon: Briefcase, label: t.vat },
@@ -91,7 +91,7 @@ export default function HomeContent() {
         ))}
       </TabsList>
 
-      <TabsContent value="income" className="mt-4">
+      <TabsContent value="income" className="mt-6 sm:mt-4">
         <TaxCalculator
           income={income}
           setIncome={setIncome}
@@ -106,17 +106,17 @@ export default function HomeContent() {
         <TaxInfo taxAmount={taxAmount} effectiveRate={effectiveRate} />
       </TabsContent>
 
-      <TabsContent value="vat" className="mt-4">
+      <TabsContent value="vat" className="mt-6 sm:mt-4">
         <VATCalculator amount={vatableAmount} setAmount={setVatableAmount} setVATAmount={setVATAmount} />
         <TaxInfo taxAmount={vatAmount} effectiveRate={(vatAmount / vatableAmount) * 100 || 0} />
       </TabsContent>
 
-      <TabsContent value="property" className="mt-4">
+      <TabsContent value="property" className="mt-6 sm:mt-4">
         <PropertyTaxCalculator value={propertyValue} setValue={setPropertyValue} setTaxAmount={setPropertyTaxAmount} />
         <TaxInfo taxAmount={propertyTaxAmount} effectiveRate={(propertyTaxAmount / propertyValue) * 100 || 0} />
       </TabsContent>
 
-      <TabsContent value="enterprise" className="mt-4">
+      <TabsContent value="enterprise" className="mt-6 sm:mt-4">
         <EnterpriseTaxCalculator revenue={revenue} setRevenue={setRevenue} setTaxAmount={setEnterpriseTaxAmount} />
         <TaxInfo taxAmount={enterpriseTaxAmount} effectiveRate={(enterpriseTaxAmount / revenue) * 100 || 0} />
       </TabsContent>

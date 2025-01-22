@@ -47,10 +47,10 @@ export default function TaxCalculator({
   }
 
   return (
-    <div className="bg-white shadow-sm rounded-lg p-4 mb-4">
+    <div className="bg-white shadow-sm rounded-lg p-4 pb-6 sm:pb-4 mb-4">
       {!isCompany && (
         <div className="mb-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 p-3 rounded-lg border border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 p-3 py-4 sm:py-3 rounded-lg border border-gray-200">
             <Label htmlFor="income-type" className="text-gray-700 text-sm font-medium mb-2 sm:mb-0">
               {isMonthly ? t.monthlyIncome : t.annualIncome} (MAD)
             </Label>
