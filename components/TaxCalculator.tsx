@@ -47,11 +47,11 @@ export default function TaxCalculator({
   }
 
   return (
-    <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
+    <div className="bg-white shadow-sm rounded-lg p-4 mb-4">
       {!isCompany && (
-        <div className="mb-6">
-          <div className="flex items-center justify-between bg-white/50 backdrop-blur-sm p-4 rounded-lg border border-gray-200">
-            <Label htmlFor="income-type" className="text-gray-700 text-sm font-medium">
+        <div className="mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-50 p-3 rounded-lg border border-gray-200">
+            <Label htmlFor="income-type" className="text-gray-700 text-sm font-medium mb-2 sm:mb-0">
               {isMonthly ? t.monthlyIncome : t.annualIncome} (MAD)
             </Label>
             <div className="flex items-center space-x-4">
@@ -77,9 +77,9 @@ export default function TaxCalculator({
           </div>
         </div>
       )}
-      <div className="mb-4">
+      <div>
         <input
-          className="shadow-sm appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="shadow-sm appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
           id="income"
           type="number"
           placeholder={`${t.enter} ${!isCompany ? (isMonthly ? t.monthlyIncome.toLowerCase() : t.annualIncome.toLowerCase()) : t.annualRevenue.toLowerCase()}`}

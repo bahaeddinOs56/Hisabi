@@ -11,32 +11,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useLanguage } from "../contexts/LanguageContext"
 import { translations } from "../utils/translations"
 import { categoryTaxRates } from "../utils/taxRates"
+import { Calculator, Briefcase, Home, Building } from "lucide-react"
 
 export default function HomeContent() {
   const searchParams = useSearchParams()
   const { language } = useLanguage()
   const t = translations[language]
 
-  // Income Tax States
+  // States for all calculators
   const [income, setIncome] = useState<number>(0)
   const [isMonthly, setIsMonthly] = useState<boolean>(true)
   const [isCompany, setIsCompany] = useState<boolean>(false)
   const [taxAmount, setTaxAmount] = useState<number>(0)
   const [effectiveRate, setEffectiveRate] = useState<number>(0)
-
-  // VAT States
   const [vatableAmount, setVatableAmount] = useState<number>(0)
   const [vatAmount, setVATAmount] = useState<number>(0)
-
-  // Property Tax States
   const [propertyValue, setPropertyValue] = useState<number>(0)
   const [propertyTaxAmount, setPropertyTaxAmount] = useState<number>(0)
-
-  // Enterprise Tax States
   const [revenue, setRevenue] = useState<number>(0)
   const [enterpriseTaxAmount, setEnterpriseTaxAmount] = useState<number>(0)
 
-  // Set initial tab based on URL parameter
   const [activeTab, setActiveTab] = useState<string>("income")
 
   useEffect(() => {
@@ -78,23 +72,26 @@ export default function HomeContent() {
   }
 
   return (
-    <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-4 sm:space-y-6">
-      <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full gap-2 sm:gap-0">
-        <TabsTrigger value="income" className="text-sm sm:text-base">
-          {t.incomeTax}
-        </TabsTrigger>
-        <TabsTrigger value="vat" className="text-sm sm:text-base">
-          {t.vat}
-        </TabsTrigger>
-        <TabsTrigger value="property" className="text-sm sm:text-base">
-          {t.propertyTax}
-        </TabsTrigger>
-        <TabsTrigger value="enterprise" className="text-sm sm:text-base">
-          {t.enterpriseTax}
-        </TabsTrigger>
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
+      <TabsList className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap justify-center p-1 bg-gray-100 rounded-lg mb-4">
+        {[
+          { value: "income", icon: Calculator, label: t.incomeTax },
+          { value: "vat", icon: Briefcase, label: t.vat },
+          { value: "property", icon: Home, label: t.propertyTax },
+          { value: "enterprise", icon: Building, label: t.enterpriseTax },
+        ].map(({ value, icon: Icon, label }) => (
+          <TabsTrigger
+            key={value}
+            value={value}
+            className="flex flex-col items-center justify-center py-2 px-3 space-y-1 bg-white rounded-md shadow-sm transition-all duration-200 ease-in-out hover:bg-gray-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground sm:flex-1"
+          >
+            <Icon className="w-5 h-5" />
+            <span className="text-xs font-medium">{label}</span>
+          </TabsTrigger>
+        ))}
       </TabsList>
 
-      <TabsContent value="income">
+      <TabsContent value="income" className="mt-4">
         <TaxCalculator
           income={income}
           setIncome={setIncome}
@@ -109,17 +106,17 @@ export default function HomeContent() {
         <TaxInfo taxAmount={taxAmount} effectiveRate={effectiveRate} />
       </TabsContent>
 
-      <TabsContent value="vat">
+      <TabsContent value="vat" className="mt-4">
         <VATCalculator amount={vatableAmount} setAmount={setVatableAmount} setVATAmount={setVATAmount} />
         <TaxInfo taxAmount={vatAmount} effectiveRate={(vatAmount / vatableAmount) * 100 || 0} />
       </TabsContent>
 
-      <TabsContent value="property">
+      <TabsContent value="property" className="mt-4">
         <PropertyTaxCalculator value={propertyValue} setValue={setPropertyValue} setTaxAmount={setPropertyTaxAmount} />
         <TaxInfo taxAmount={propertyTaxAmount} effectiveRate={(propertyTaxAmount / propertyValue) * 100 || 0} />
       </TabsContent>
 
-      <TabsContent value="enterprise">
+      <TabsContent value="enterprise" className="mt-4">
         <EnterpriseTaxCalculator revenue={revenue} setRevenue={setRevenue} setTaxAmount={setEnterpriseTaxAmount} />
         <TaxInfo taxAmount={enterpriseTaxAmount} effectiveRate={(enterpriseTaxAmount / revenue) * 100 || 0} />
       </TabsContent>
