@@ -34,14 +34,3 @@ Hisabi is a comprehensive, multilingual Moroccan tax calculator for income, VAT,
 - **Date Handling**: date-fns
 - **Icons**: Lucide React
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or later)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-
