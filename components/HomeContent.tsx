@@ -73,7 +73,7 @@ export default function HomeContent() {
 
   return (
     <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-      <TabsList className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap justify-center p-1 bg-gray-100 rounded-lg mb-6 sm:mb-4">
+      <TabsList className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap justify-center p-1 bg-gray-100 rounded-lg mb-24 sm:mb-32">
         {[
           { value: "income", icon: Calculator, label: t.incomeTax },
           { value: "vat", icon: Briefcase, label: t.vat },
@@ -91,8 +91,8 @@ export default function HomeContent() {
         ))}
       </TabsList>
 
-      <TabsContent value="income" className="mt-16 sm:mt-20 mb-12">
-        <div className="mt-8 sm:mt-12">
+      <TabsContent value="income" className="mt-48 sm:mt-64 mb-12">
+        <div className="space-y-8 sm:space-y-12">
           <TaxCalculator
             income={income}
             setIncome={setIncome}
@@ -104,39 +104,31 @@ export default function HomeContent() {
             setTaxAmount={setTaxAmount}
             setEffectiveRate={setEffectiveRate}
           />
-        </div>
-        <div className="mt-16 sm:mt-20">
           <TaxInfo taxAmount={taxAmount} effectiveRate={effectiveRate} />
         </div>
       </TabsContent>
 
-      <TabsContent value="vat" className="mt-16 sm:mt-20 mb-12">
-        <div className="mt-8 sm:mt-12">
+      <TabsContent value="vat" className="mt-48 sm:mt-64 mb-12">
+        <div className="space-y-8 sm:space-y-12">
           <VATCalculator amount={vatableAmount} setAmount={setVatableAmount} setVATAmount={setVATAmount} />
-        </div>
-        <div className="mt-16 sm:mt-20">
           <TaxInfo taxAmount={vatAmount} effectiveRate={(vatAmount / vatableAmount) * 100 || 0} />
         </div>
       </TabsContent>
 
-      <TabsContent value="property" className="mt-16 sm:mt-20 mb-12">
-        <div className="mt-8 sm:mt-12">
+      <TabsContent value="property" className="mt-48 sm:mt-64 mb-12">
+        <div className="space-y-8 sm:space-y-12">
           <PropertyTaxCalculator
             value={propertyValue}
             setValue={setPropertyValue}
             setTaxAmount={setPropertyTaxAmount}
           />
-        </div>
-        <div className="mt-16 sm:mt-20">
           <TaxInfo taxAmount={propertyTaxAmount} effectiveRate={(propertyTaxAmount / propertyValue) * 100 || 0} />
         </div>
       </TabsContent>
 
-      <TabsContent value="enterprise" className="mt-16 sm:mt-20 mb-12">
-        <div className="mt-8 sm:mt-12">
+      <TabsContent value="enterprise" className="mt-48 sm:mt-64 mb-12">
+        <div className="space-y-8 sm:space-y-12">
           <EnterpriseTaxCalculator revenue={revenue} setRevenue={setRevenue} setTaxAmount={setEnterpriseTaxAmount} />
-        </div>
-        <div className="mt-16 sm:mt-20">
           <TaxInfo taxAmount={enterpriseTaxAmount} effectiveRate={(enterpriseTaxAmount / revenue) * 100 || 0} />
         </div>
       </TabsContent>
