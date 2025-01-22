@@ -91,34 +91,54 @@ export default function HomeContent() {
         ))}
       </TabsList>
 
-      <TabsContent value="income" className="mt-6 sm:mt-4">
-        <TaxCalculator
-          income={income}
-          setIncome={setIncome}
-          isMonthly={isMonthly}
-          setIsMonthly={setIsMonthly}
-          calculateTax={calculateTax}
-          category="individual"
-          isCompany={isCompany}
-          setTaxAmount={setTaxAmount}
-          setEffectiveRate={setEffectiveRate}
-        />
-        <TaxInfo taxAmount={taxAmount} effectiveRate={effectiveRate} />
+      <TabsContent value="income" className="mt-16 sm:mt-20 mb-12">
+        <div className="mt-8 sm:mt-12">
+          <TaxCalculator
+            income={income}
+            setIncome={setIncome}
+            isMonthly={isMonthly}
+            setIsMonthly={setIsMonthly}
+            calculateTax={calculateTax}
+            category="individual"
+            isCompany={isCompany}
+            setTaxAmount={setTaxAmount}
+            setEffectiveRate={setEffectiveRate}
+          />
+        </div>
+        <div className="mt-16 sm:mt-20">
+          <TaxInfo taxAmount={taxAmount} effectiveRate={effectiveRate} />
+        </div>
       </TabsContent>
 
-      <TabsContent value="vat" className="mt-6 sm:mt-4">
-        <VATCalculator amount={vatableAmount} setAmount={setVatableAmount} setVATAmount={setVATAmount} />
-        <TaxInfo taxAmount={vatAmount} effectiveRate={(vatAmount / vatableAmount) * 100 || 0} />
+      <TabsContent value="vat" className="mt-16 sm:mt-20 mb-12">
+        <div className="mt-8 sm:mt-12">
+          <VATCalculator amount={vatableAmount} setAmount={setVatableAmount} setVATAmount={setVATAmount} />
+        </div>
+        <div className="mt-16 sm:mt-20">
+          <TaxInfo taxAmount={vatAmount} effectiveRate={(vatAmount / vatableAmount) * 100 || 0} />
+        </div>
       </TabsContent>
 
-      <TabsContent value="property" className="mt-6 sm:mt-4">
-        <PropertyTaxCalculator value={propertyValue} setValue={setPropertyValue} setTaxAmount={setPropertyTaxAmount} />
-        <TaxInfo taxAmount={propertyTaxAmount} effectiveRate={(propertyTaxAmount / propertyValue) * 100 || 0} />
+      <TabsContent value="property" className="mt-16 sm:mt-20 mb-12">
+        <div className="mt-8 sm:mt-12">
+          <PropertyTaxCalculator
+            value={propertyValue}
+            setValue={setPropertyValue}
+            setTaxAmount={setPropertyTaxAmount}
+          />
+        </div>
+        <div className="mt-16 sm:mt-20">
+          <TaxInfo taxAmount={propertyTaxAmount} effectiveRate={(propertyTaxAmount / propertyValue) * 100 || 0} />
+        </div>
       </TabsContent>
 
-      <TabsContent value="enterprise" className="mt-6 sm:mt-4">
-        <EnterpriseTaxCalculator revenue={revenue} setRevenue={setRevenue} setTaxAmount={setEnterpriseTaxAmount} />
-        <TaxInfo taxAmount={enterpriseTaxAmount} effectiveRate={(enterpriseTaxAmount / revenue) * 100 || 0} />
+      <TabsContent value="enterprise" className="mt-16 sm:mt-20 mb-12">
+        <div className="mt-8 sm:mt-12">
+          <EnterpriseTaxCalculator revenue={revenue} setRevenue={setRevenue} setTaxAmount={setEnterpriseTaxAmount} />
+        </div>
+        <div className="mt-16 sm:mt-20">
+          <TaxInfo taxAmount={enterpriseTaxAmount} effectiveRate={(enterpriseTaxAmount / revenue) * 100 || 0} />
+        </div>
       </TabsContent>
     </Tabs>
   )
