@@ -11,8 +11,10 @@ interface TaxCalculatorProps {
   setIncome: (income: number) => void
   isMonthly: boolean
   setIsMonthly: (isMonthly: boolean) => void
+  calculateTax: (incomeValue: number, monthly: boolean) => void
+  category: string
   isCompany: boolean
-  setTaxAmount: (tax: number) => void
+  setTaxAmount: (amount: number) => void
   setEffectiveRate: (rate: number) => void
 }
 
@@ -21,64 +23,14 @@ export default function TaxCalculator({
   setIncome,
   isMonthly,
   setIsMonthly,
+  calculateTax,
+  category,
   isCompany,
   setTaxAmount,
   setEffectiveRate,
 }: TaxCalculatorProps) {
   const { language } = useLanguage()
   const t = translations[language]
-
-  const calculateTax = (incomeValue: number, monthly: boolean) => {
-    const annualIncome = monthly ? incomeValue * 12 : incomeValue
-    let tax = 0
-    let remainingIncome = annualIncome
-
-    if (!isCompany) {
-      // Individual Income Tax calculation
-      if (remainingIncome > 180000) {
-        tax += (remainingIncome - 180000) * 0.37
-        remainingIncome = 180000
-      }
-      if (remainingIncome > 100000) {
-        tax += (remainingIncome - 100000) * 0.34
-        remainingIncome = 100000
-      }
-      if (remainingIncome > 80000) {
-        tax += (remainingIncome - 80000) * 0.3
-        remainingIncome = 80000
-      }
-      if (remainingIncome > 60000) {
-        tax += (remainingIncome - 60000) * 0.2
-        remainingIncome = 60000
-      }
-      if (remainingIncome > 40000) {
-        tax += (remainingIncome - 40000) * 0.1
-      }
-    } else {
-      // Corporate Income Tax calculation
-      if (remainingIncome > 100000000) {
-        tax += (remainingIncome - 100000000) * 0.35
-        remainingIncome = 100000000
-      }
-      if (remainingIncome > 1000000) {
-        tax += (remainingIncome - 1000000) * 0.2275
-        remainingIncome = 1000000
-      }
-      if (remainingIncome > 300000) {
-        tax += (remainingIncome - 300000) * 0.2
-        remainingIncome = 300000
-      }
-      tax += remainingIncome * 0.175
-    }
-
-    // Social Solidarity Contribution
-    if (annualIncome > 1000000) {
-      tax += (annualIncome - 1000000) * 0.015
-    }
-
-    setTaxAmount(Math.round(tax))
-    setEffectiveRate(Number(((tax / annualIncome) * 100).toFixed(2)))
-  }
 
   const handleIncomeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const incomeValue = Number(e.target.value)
@@ -91,6 +43,7 @@ export default function TaxCalculator({
     setIncome(0)
     setTaxAmount(0)
     setEffectiveRate(0)
+    calculateTax(0, checked)
   }
 
   return (
@@ -129,7 +82,7 @@ export default function TaxCalculator({
           className="shadow-sm appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           id="income"
           type="number"
-          placeholder={`${t.enter} ${!isCompany ? (isMonthly ? t.monthlyIncome.toLowerCase() : t.annualIncome.toLowerCase()) : t.annualIncome.toLowerCase()}`}
+          placeholder={`${t.enter} ${!isCompany ? (isMonthly ? t.monthlyIncome.toLowerCase() : t.annualIncome.toLowerCase()) : t.annualRevenue.toLowerCase()}`}
           value={income || ""}
           onChange={handleIncomeChange}
         />

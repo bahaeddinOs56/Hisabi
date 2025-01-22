@@ -10,6 +10,7 @@ import TaxInfo from "./TaxInfo"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useLanguage } from "../contexts/LanguageContext"
 import { translations } from "../utils/translations"
+import { categoryTaxRates } from "../utils/taxRates"
 
 export default function HomeContent() {
   const searchParams = useSearchParams()
@@ -52,13 +53,45 @@ export default function HomeContent() {
     window.history.pushState({}, "", url)
   }
 
+  const calculateTax = (incomeValue: number, monthly: boolean) => {
+    const annualIncome = monthly ? incomeValue * 12 : incomeValue
+    let tax = 0
+    let remainingIncome = annualIncome
+
+    const rates = categoryTaxRates[isCompany ? "company" : "individual"]
+
+    for (let i = 0; i < rates.length; i++) {
+      if (remainingIncome > rates[i].threshold) {
+        const taxableAmount =
+          i === rates.length - 1
+            ? remainingIncome - rates[i - 1].threshold
+            : rates[i].threshold - (i > 0 ? rates[i - 1].threshold : 0)
+        tax += taxableAmount * rates[i].rate
+        remainingIncome -= taxableAmount
+      } else {
+        break
+      }
+    }
+
+    setTaxAmount(Math.round(tax))
+    setEffectiveRate(Number(((tax / annualIncome) * 100).toFixed(2)))
+  }
+
   return (
-    <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-6">
-      <TabsList className="grid grid-cols-4 w-full">
-        <TabsTrigger value="income">{t.incomeTax}</TabsTrigger>
-        <TabsTrigger value="vat">{t.vat}</TabsTrigger>
-        <TabsTrigger value="property">{t.propertyTax}</TabsTrigger>
-        <TabsTrigger value="enterprise">{t.enterpriseTax}</TabsTrigger>
+    <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-4 sm:space-y-6">
+      <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full gap-2 sm:gap-0">
+        <TabsTrigger value="income" className="text-sm sm:text-base">
+          {t.incomeTax}
+        </TabsTrigger>
+        <TabsTrigger value="vat" className="text-sm sm:text-base">
+          {t.vat}
+        </TabsTrigger>
+        <TabsTrigger value="property" className="text-sm sm:text-base">
+          {t.propertyTax}
+        </TabsTrigger>
+        <TabsTrigger value="enterprise" className="text-sm sm:text-base">
+          {t.enterpriseTax}
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="income">
@@ -67,6 +100,8 @@ export default function HomeContent() {
           setIncome={setIncome}
           isMonthly={isMonthly}
           setIsMonthly={setIsMonthly}
+          calculateTax={calculateTax}
+          category="individual"
           isCompany={isCompany}
           setTaxAmount={setTaxAmount}
           setEffectiveRate={setEffectiveRate}

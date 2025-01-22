@@ -55,6 +55,7 @@ export const translations = {
     enter: "Enter",
     annual: "Annual",
     monthly: "Monthly",
+    moroccanTaxCalculator2025: "Moroccan Tax Calculator 2025",
 
     // Tax Brackets Page
     moroccanTaxBrackets2025: "Moroccan Tax Brackets 2025",
@@ -210,6 +211,7 @@ export const translations = {
     importantNote2: "Documentation is crucial for claiming deductions and credits.",
     importantNote3: "Some benefits may have specific eligibility requirements.",
     importantNote4: "Consider consulting a tax professional for personalized advice.",
+    unknown: "Unknown",
   },
   fr: {
     // Navigation
@@ -267,6 +269,7 @@ export const translations = {
     enter: "Entrer",
     annual: "Annuel",
     monthly: "Mensuel",
+    moroccanTaxCalculator2025: "Calculateur d'Impôts Marocain 2025",
 
     // Tax Brackets Page
     moroccanTaxBrackets2025: "Tranches d'Imposition Marocaines 2025",
@@ -422,6 +425,7 @@ export const translations = {
     importantNote2: "La documentation est cruciale pour réclamer des déductions et des crédits.",
     importantNote3: "Certains avantages peuvent avoir des exigences d'éligibilité spécifiques.",
     importantNote4: "Envisagez de consulter un professionnel fiscal pour des conseils personnalisés.",
+    unknown: "Inconnu",
   },
   ar: {
     // Navigation
@@ -481,6 +485,7 @@ export const translations = {
     industrial: "صناعي",
     enterAnnualRevenue: "أدخل الإيرادات السنوية",
     selectCompanyType: "اختر نوع الشركة",
+    moroccanTaxCalculator2025: "حاسبة الضرائب المغربية ٢٠٢٥",
 
     // Tax Brackets Page
     moroccanTaxBrackets2025: "الشرائح الضريبية المغربية 2025",
@@ -575,8 +580,6 @@ export const translations = {
     personalIncomeTaxRelatedEvents: "أحداث متعلقة بضريبة الدخل الشخصي",
     customRemindersAndEvents: "تذكيراتك وأحداثك المخصصة",
     upcoming: "قادم",
-    customRemindersAndEvents: "تذكيراتك وأحداثك المخصصة",
-    upcoming: "قادم",
     on: "في",
     newEventAdded: (title) => `تمت إضافة حدث جديد: ${title}`,
     eventRemoved: "تمت إزالة الحدث بنجاح",
@@ -638,6 +641,7 @@ export const translations = {
     importantNote2: "الوثائق ضرورية للمطالبة بالخصومات والائتمانات.",
     importantNote3: "قد تكون لبعض المزايا متطلبات أهلية محددة.",
     importantNote4: "فكر في استشارة خبير ضرائب للحصول على نصائح شخصية.",
+    unknown: "غير معروف",
   },
 }
 
