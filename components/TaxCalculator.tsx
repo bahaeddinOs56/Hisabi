@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { ChangeEvent } from 'react'
+import type { ChangeEvent } from "react"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
-import { useLanguage } from '../contexts/LanguageContext'
-import { translations } from '../utils/translations'
+import { useLanguage } from "../contexts/LanguageContext"
+import { translations } from "../utils/translations"
 
 interface TaxCalculatorProps {
   income: number
@@ -44,15 +44,15 @@ export default function TaxCalculator({
         remainingIncome = 100000
       }
       if (remainingIncome > 80000) {
-        tax += (remainingIncome - 80000) * 0.30
+        tax += (remainingIncome - 80000) * 0.3
         remainingIncome = 80000
       }
       if (remainingIncome > 60000) {
-        tax += (remainingIncome - 60000) * 0.20
+        tax += (remainingIncome - 60000) * 0.2
         remainingIncome = 60000
       }
       if (remainingIncome > 40000) {
-        tax += (remainingIncome - 40000) * 0.10
+        tax += (remainingIncome - 40000) * 0.1
       }
     } else {
       // Corporate Income Tax calculation
@@ -65,7 +65,7 @@ export default function TaxCalculator({
         remainingIncome = 1000000
       }
       if (remainingIncome > 300000) {
-        tax += (remainingIncome - 300000) * 0.20
+        tax += (remainingIncome - 300000) * 0.2
         remainingIncome = 300000
       }
       tax += remainingIncome * 0.175
@@ -87,28 +87,39 @@ export default function TaxCalculator({
   }
 
   const handleMonthlyToggle = (checked: boolean) => {
-    setIsMonthly(checked);
-    setIncome(0);
-    setTaxAmount(0);
-    setEffectiveRate(0);
+    setIsMonthly(checked)
+    setIncome(0)
+    setTaxAmount(0)
+    setEffectiveRate(0)
   }
 
   return (
     <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
       {!isCompany && (
         <div className="mb-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between bg-white/50 backdrop-blur-sm p-4 rounded-lg border border-gray-200">
             <Label htmlFor="income-type" className="text-gray-700 text-sm font-medium">
               {isMonthly ? t.monthlyIncome : t.annualIncome} (MAD)
             </Label>
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="income-type" className={`text-sm ${isMonthly ? 'font-medium' : ''}`}>{t.monthly}</Label>
+            <div className="flex items-center space-x-4">
+              <Label
+                htmlFor="income-type"
+                className={`text-sm ${isMonthly ? "font-medium text-primary" : "text-gray-500"}`}
+              >
+                {t.monthly}
+              </Label>
               <Switch
                 id="income-type"
                 checked={!isMonthly}
                 onCheckedChange={(checked) => handleMonthlyToggle(!checked)}
+                className="data-[state=checked]:bg-primary"
               />
-              <Label htmlFor="income-type" className={`text-sm ${!isMonthly ? 'font-medium' : ''}`}>{t.annual}</Label>
+              <Label
+                htmlFor="income-type"
+                className={`text-sm ${!isMonthly ? "font-medium text-primary" : "text-gray-500"}`}
+              >
+                {t.annual}
+              </Label>
             </div>
           </div>
         </div>
@@ -119,7 +130,7 @@ export default function TaxCalculator({
           id="income"
           type="number"
           placeholder={`${t.enter} ${!isCompany ? (isMonthly ? t.monthlyIncome.toLowerCase() : t.annualIncome.toLowerCase()) : t.annualIncome.toLowerCase()}`}
-          value={income || ''}
+          value={income || ""}
           onChange={handleIncomeChange}
         />
       </div>
