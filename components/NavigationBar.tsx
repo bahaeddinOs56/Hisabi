@@ -11,7 +11,7 @@ import { translations } from "../utils/translations"
 
 const NavigationBar = () => {
   const pathname = usePathname()
-  const { language, setLanguage } = useLanguage()
+  const { language } = useLanguage()
   const t = translations[language]
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -53,50 +53,12 @@ const NavigationBar = () => {
               ))}
             </div>
           </div>
-          <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 rtl:space-x-reverse">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">
-                  {t.calculators}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align={language === "ar" ? "end" : "start"}>
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=income">{t.incomeTax}</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=vat">{t.vat}</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=property">{t.propertyTax}</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=enterprise">{t.enterpriseTax}</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">
-                  {t.language}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align={language === "ar" ? "end" : "start"}>
-                <DropdownMenuItem onSelect={() => setLanguage("en")}>English</DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setLanguage("fr")}>Français</DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setLanguage("ar")}>عربي</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Button variant="ghost" size="sm">
-              {t.userAccount}
-            </Button>
-          </div>
           <div className="flex items-center md:hidden">
             <DropdownMenu open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="h-9 w-9">
                   <Menu className="h-5 w-5" />
-                  <span className="sr-only">Open main menu</span>
+                  <span className="sr-only">Ouvrir le menu principal</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 bg-white shadow-lg rounded-md border border-gray-200">
@@ -107,30 +69,6 @@ const NavigationBar = () => {
                     </Link>
                   </DropdownMenuItem>
                 ))}
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=income" className="w-full">
-                    {t.incomeTax}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=vat" className="w-full">
-                    {t.vat}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=property" className="w-full">
-                    {t.propertyTax}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?calculator=enterprise" className="w-full">
-                    {t.enterpriseTax}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setLanguage("en")}>English</DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setLanguage("fr")}>Français</DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setLanguage("ar")}>عربي</DropdownMenuItem>
-                <DropdownMenuItem>{t.userAccount}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
