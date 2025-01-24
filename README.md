@@ -34,3 +34,48 @@ Hisabi is a comprehensive, multilingual Moroccan tax calculator for income, VAT,
 - **Date Handling**: date-fns
 - **Icons**: Lucide React
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   \`\`\`
+   git clone https://github.com/yourusername/hisabi-moroccan-tax-calculator.git
+   \`\`\`
+
+2. Navigate to the project directory:
+   \`\`\`
+   cd hisabi-moroccan-tax-calculator
+   \`\`\`
+
+3. Install dependencies:
+   \`\`\`
+   npm install
+   \`\`\`
+   or if you're using Yarn:
+   \`\`\`
+   yarn install
+   \`\`\`
+
+4. Create a `.env.local` file in the root directory and add the following environment variables:
+   \`\`\`
+   NEXT_PUBLIC_API_URL=your_api_url_here
+   \`\`\`
+   Replace `your_api_url_here` with the actual API URL if required.
+
+5. Start the development server:
+   \`\`\`
+   npm run dev
+   \`\`\`
+   or if you're using Yarn:
+   \`\`\`
+   yarn dev
+   \`\`\`
+
+6. Open your browser and visit `http://localhost:3000` to see the application running.
+

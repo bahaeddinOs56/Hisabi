@@ -10,8 +10,9 @@ import TaxInfo from "./TaxInfo"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useLanguage } from "../contexts/LanguageContext"
 import { translations } from "../utils/translations"
-import { categoryTaxRates } from "../utils/taxRates"
-import { Calculator, Briefcase, Home, Building } from "lucide-react"
+import { categoryTaxRates, FAMILY_ALLOWANCE_DEDUCTION, MAX_FAMILY_ALLOWANCE_DEDUCTION } from "../utils/taxRates"
+import { Calculator, Briefcase, Home, Building, Info } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function HomeContent() {
   const searchParams = useSearchParams()
@@ -26,10 +27,11 @@ export default function HomeContent() {
   const [effectiveRate, setEffectiveRate] = useState<number>(0)
   const [vatableAmount, setVatableAmount] = useState<number>(0)
   const [vatAmount, setVATAmount] = useState<number>(0)
-  const [propertyValue, setPropertyValue] = useState<number>(0)
+  const [propertyValue, setPropertyValue] = useState<number>(0) //This line is not used anymore, but kept for reference
   const [propertyTaxAmount, setPropertyTaxAmount] = useState<number>(0)
   const [revenue, setRevenue] = useState<number>(0)
   const [enterpriseTaxAmount, setEnterpriseTaxAmount] = useState<number>(0)
+  const [rentalValue, setRentalValue] = useState<number>(0)
 
   const [activeTab, setActiveTab] = useState<string>("income")
 
@@ -47,22 +49,24 @@ export default function HomeContent() {
     window.history.pushState({}, "", url)
   }
 
-  const calculateTax = (incomeValue: number, monthly: boolean) => {
+  const calculateTax = (incomeValue: number, monthly: boolean, dependents: number) => {
     const annualIncome = monthly ? incomeValue * 12 : incomeValue
     let tax = 0
     let remainingIncome = annualIncome
+
+    // Apply family allowance deduction
+    const familyAllowanceDeduction = Math.min(dependents * FAMILY_ALLOWANCE_DEDUCTION, MAX_FAMILY_ALLOWANCE_DEDUCTION)
+    remainingIncome -= familyAllowanceDeduction
 
     const rates = categoryTaxRates[isCompany ? "company" : "individual"]
 
     for (let i = 0; i < rates.length; i++) {
       if (remainingIncome > rates[i].threshold) {
-        const taxableAmount =
-          i === rates.length - 1
-            ? remainingIncome - rates[i - 1].threshold
-            : rates[i].threshold - (i > 0 ? rates[i - 1].threshold : 0)
+        const taxableAmount = i === 0 ? rates[i].threshold : rates[i].threshold - rates[i - 1].threshold
         tax += taxableAmount * rates[i].rate
         remainingIncome -= taxableAmount
       } else {
+        tax += remainingIncome * rates[i].rate
         break
       }
     }
@@ -112,17 +116,25 @@ export default function HomeContent() {
         <div className="space-y-8 sm:space-y-12">
           <VATCalculator amount={vatableAmount} setAmount={setVatableAmount} setVATAmount={setVATAmount} />
           <TaxInfo taxAmount={vatAmount} effectiveRate={(vatAmount / vatableAmount) * 100 || 0} />
+          <Alert>
+            <Info className="h-4 w-4" />
+            <AlertTitle>{t.vatComplianceInfo}</AlertTitle>
+            <AlertDescription>
+              <p>{t.vatTaxPoint}</p>
+              <p>{t.vatInvoiceRequirements}</p>
+            </AlertDescription>
+          </Alert>
         </div>
       </TabsContent>
 
       <TabsContent value="property" className="mt-48 sm:mt-64 mb-12">
         <div className="space-y-8 sm:space-y-12">
           <PropertyTaxCalculator
-            value={propertyValue}
-            setValue={setPropertyValue}
+            rentalValue={rentalValue}
+            setRentalValue={setRentalValue}
             setTaxAmount={setPropertyTaxAmount}
           />
-          <TaxInfo taxAmount={propertyTaxAmount} effectiveRate={(propertyTaxAmount / propertyValue) * 100 || 0} />
+          <TaxInfo taxAmount={propertyTaxAmount} effectiveRate={(propertyTaxAmount / rentalValue) * 100 || 0} />
         </div>
       </TabsContent>
 

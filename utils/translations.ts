@@ -56,6 +56,11 @@ export const translations = {
     annual: "Annuel",
     monthly: "Mensuel",
     moroccanTaxCalculator2025: "Calculateur d'Impôts Marocain 2025",
+    rentalValue: "Valeur locative",
+    enterRentalValue: "Entrez la valeur locative",
+    location: "Emplacement",
+    urban: "Urbain",
+    peripheral: "Périphérique",
 
     // Tax Brackets Page
     moroccanTaxBrackets2025: "Tranches d'Imposition Marocaines 2025",
@@ -162,6 +167,8 @@ export const translations = {
     vat: "TVA",
     corporate: "Entreprise",
     income: "Revenu",
+    numberOfDependents: "Nombre de personnes à charge",
+    enterNumberOfDependents: "Entrez le nombre de personnes à charge",
 
     // Contact Page
     contactUs: "Contactez-nous",
@@ -212,6 +219,17 @@ export const translations = {
     importantNote3: "Certains avantages peuvent avoir des exigences d'éligibilité spécifiques.",
     importantNote4: "Envisagez de consulter un professionnel fiscal pour des conseils personnalisés.",
     unknown: "Inconnu",
+    standardRate: "Taux standard",
+    reducedRate14: "Taux réduit",
+    reducedRate10: "Taux réduit",
+    reducedRate7: "Taux réduit",
+    zeroRate: "Taux zéro",
+    selectVATRate: "Sélectionnez le taux de TVA",
+    vatComplianceInfo: "Informations sur la conformité TVA",
+    vatTaxPoint:
+      "Le fait générateur de la TVA est généralement le moment du paiement. Pour les importations, c'est lors du dédouanement des marchandises.",
+    vatInvoiceRequirements:
+      "Les factures doivent inclure les détails du vendeur, la date, le numéro de TVA unique, les détails du client, la description des biens ou services, le prix net et brut, et le montant de la TVA.",
   },
   en: {
     // Navigation
@@ -270,6 +288,11 @@ export const translations = {
     annual: "Annual",
     monthly: "Monthly",
     moroccanTaxCalculator2025: "Moroccan Tax Calculator 2025",
+    rentalValue: "Rental Value",
+    enterRentalValue: "Enter rental value",
+    location: "Location",
+    urban: "Urban",
+    peripheral: "Peripheral",
 
     // Tax Brackets Page
     moroccanTaxBrackets2025: "Moroccan Tax Brackets 2025",
@@ -376,6 +399,8 @@ export const translations = {
     vat: "VAT",
     corporate: "Corporate",
     income: "Income",
+    numberOfDependents: "Number of Dependents",
+    enterNumberOfDependents: "Enter number of dependents",
 
     // Contact Page
     contactUs: "Contact Us",
@@ -426,6 +451,17 @@ export const translations = {
     importantNote3: "Some benefits may have specific eligibility requirements.",
     importantNote4: "Consider consulting a tax professional for personalized advice.",
     unknown: "Unknown",
+    standardRate: "Standard rate",
+    reducedRate14: "Reduced rate",
+    reducedRate10: "Reduced rate",
+    reducedRate7: "Reduced rate",
+    zeroRate: "Zero rate",
+    selectVATRate: "Select VAT rate",
+    vatComplianceInfo: "VAT Compliance Information",
+    vatTaxPoint:
+      "The VAT tax point is generally at the time of payment. For imports, it's when goods are cleared through customs.",
+    vatInvoiceRequirements:
+      "Invoices must include vendor details, date, unique VAT number, customer details, description of goods or services, net and gross price, and VAT amount.",
   },
   ar: {
     // Navigation
@@ -486,6 +522,11 @@ export const translations = {
     enterAnnualRevenue: "أدخل الإيرادات السنوية",
     selectCompanyType: "اختر نوع الشركة",
     moroccanTaxCalculator2025: "حاسبة الضرائب المغربية ٢٠٢٥",
+    rentalValue: "القيمة الإيجارية",
+    enterRentalValue: "أدخل القيمة الإيجارية",
+    location: "الموقع",
+    urban: "حضري",
+    peripheral: "طرفي",
 
     // Tax Brackets Page
     moroccanTaxBrackets2025: "الشرائح الضريبية المغربية 2025",
@@ -592,6 +633,8 @@ export const translations = {
     vat: "ضريبة القيمة المضافة",
     corporate: "الشركات",
     income: "الدخل",
+    numberOfDependents: "عدد المعالين",
+    enterNumberOfDependents: "أدخل عدد المعالين",
 
     // Contact Page
     contactUs: "اتصل بنا",
@@ -642,6 +685,16 @@ export const translations = {
     importantNote3: "قد تكون لبعض المزايا متطلبات أهلية محددة.",
     importantNote4: "فكر في استشارة خبير ضرائب للحصول على نصائح شخصية.",
     unknown: "غير معروف",
+    standardRate: "المعدل القياسي",
+    reducedRate14: "معدل مخفض",
+    reducedRate10: "معدل مخفض",
+    reducedRate7: "معدل مخفض",
+    zeroRate: "معدل الصفر",
+    selectVATRate: "اختر معدل ضريبة القيمة المضافة",
+    vatComplianceInfo: "معلومات الامتثال لضريبة القيمة المضافة",
+    vatTaxPoint: "نقطة ضريبة القيمة المضافة هي عموماً وقت الدفع. بالنسبة للواردات، فهي عند تخليص البضائع عبر الجمارك.",
+    vatInvoiceRequirements:
+      "يجب أن تتضمن الفواتير تفاصيل البائع والتاريخ ورقم ضريبة القيمة المضافة الفريد وتفاصيل العميل ووصف السلع أو الخدمات والسعر الصافي والإجمالي ومبلغ ضريبة القيمة المضافة.",
   },
 }
 

@@ -1,17 +1,19 @@
 "use client"
 
-import type { ChangeEvent } from "react"
+import { useState, type ChangeEvent } from "react"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 import { useLanguage } from "../contexts/LanguageContext"
 import { translations } from "../utils/translations"
+import { categoryTaxRates, FAMILY_ALLOWANCE_DEDUCTION, MAX_FAMILY_ALLOWANCE_DEDUCTION } from "../utils/taxRates"
 
 interface TaxCalculatorProps {
   income: number
   setIncome: (income: number) => void
   isMonthly: boolean
   setIsMonthly: (isMonthly: boolean) => void
-  calculateTax: (incomeValue: number, monthly: boolean) => void
+  calculateTax: (incomeValue: number, monthly: boolean, dependents: number) => void
   category: string
   isCompany: boolean
   setTaxAmount: (amount: number) => void
@@ -31,19 +33,23 @@ export default function TaxCalculator({
 }: TaxCalculatorProps) {
   const { language } = useLanguage()
   const t = translations[language]
+  const [dependents, setDependents] = useState<number>(0)
 
   const handleIncomeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const incomeValue = Number(e.target.value)
     setIncome(incomeValue)
-    calculateTax(incomeValue, isMonthly)
+    calculateTax(incomeValue, isMonthly, dependents)
   }
 
   const handleMonthlyToggle = (checked: boolean) => {
     setIsMonthly(checked)
-    setIncome(0)
-    setTaxAmount(0)
-    setEffectiveRate(0)
-    calculateTax(0, checked)
+    calculateTax(income, checked, dependents)
+  }
+
+  const handleDependentsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const dependentsValue = Number(e.target.value)
+    setDependents(dependentsValue)
+    calculateTax(income, isMonthly, dependentsValue)
   }
 
   return (
@@ -63,8 +69,8 @@ export default function TaxCalculator({
               </Label>
               <Switch
                 id="income-type"
-                checked={!isMonthly}
-                onCheckedChange={(checked) => handleMonthlyToggle(!checked)}
+                checked={isMonthly}
+                onCheckedChange={handleMonthlyToggle}
                 className="data-[state=checked]:bg-primary"
               />
               <Label
@@ -77,15 +83,35 @@ export default function TaxCalculator({
           </div>
         </div>
       )}
-      <div>
-        <input
-          className="shadow-sm appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-          id="income"
-          type="number"
-          placeholder={`${t.enter} ${!isCompany ? (isMonthly ? t.monthlyIncome.toLowerCase() : t.annualIncome.toLowerCase()) : t.annualRevenue.toLowerCase()}`}
-          value={income || ""}
-          onChange={handleIncomeChange}
-        />
+      <div className="space-y-4">
+        <div>
+          <Label htmlFor="income" className="text-sm font-medium text-gray-700">
+            {t.income}
+          </Label>
+          <Input
+            id="income"
+            type="number"
+            placeholder={`${t.enter} ${!isCompany ? (isMonthly ? t.monthlyIncome.toLowerCase() : t.annualIncome.toLowerCase()) : t.annualRevenue.toLowerCase()}`}
+            value={income || ""}
+            onChange={handleIncomeChange}
+          />
+        </div>
+        {!isCompany && (
+          <div>
+            <Label htmlFor="dependents" className="text-sm font-medium text-gray-700">
+              {t.numberOfDependents}
+            </Label>
+            <Input
+              id="dependents"
+              type="number"
+              min="0"
+              max="6"
+              placeholder={t.enterNumberOfDependents}
+              value={dependents}
+              onChange={handleDependentsChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   )
